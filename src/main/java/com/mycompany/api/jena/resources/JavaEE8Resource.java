@@ -21,8 +21,14 @@ public class JavaEE8Resource {
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + 
-                                    "SELECT ?x ( STR(?lab) as ?label ) WHERE {?x rdf:type owl:Class. " +
+                                    "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdf:type owl:Class. " +
                                     "OPTIONAL{?x rdfs:label ?lab}} ORDER BY ?label";
+        static String queryTest2 =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+                                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + 
+                                    "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdfs:label ?lab " +
+                                    "} ORDER BY ?label";
   
     @GET
     @Path("json")
@@ -76,7 +82,7 @@ public class JavaEE8Resource {
     }
 
     private Response doRes() {
-        String a = Ontology.GetResultAsString(queryTest);
+        String a = Ontology.GetResultAsString(queryTest2);
         
         return Response
                .ok("ok")
