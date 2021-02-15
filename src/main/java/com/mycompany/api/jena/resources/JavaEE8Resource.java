@@ -19,12 +19,11 @@ import javax.ws.rs.container.Suspended;
 public class JavaEE8Resource {
     
     //  String with a query in sparql formart t
-        static String queryTest =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+        static String prefix =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + 
-                                    "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdf:type owl:Class. " +
-                                    "OPTIONAL{?x rdfs:label ?lab}} ORDER BY ?label";
+                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
+        
         static String queryTest2 =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
@@ -75,7 +74,7 @@ public class JavaEE8Resource {
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
     @GET
-    @Path("response/{q}")
+    @Path("response/search/q={q}")
     @Produces("application/json")
     public void res(@Suspended
     final AsyncResponse asyncResponse, @PathParam("q") String query){
@@ -86,7 +85,13 @@ public class JavaEE8Resource {
 
     private Response doRes(String query) {
         System.out.println(query);
-        String a = Ontology.GetResultAsString(queryTest2);
+        String qfinal = prefix + "SELECT  ?x (STR(?lab) as ?label) " +
+                                    "where {" +
+                                    " ?x rdfs:label ?lab." +
+                                    " FILTER regex(?lab, \""+(query)+"\", \"i\")" +
+                                    "}" ;
+        System.out.println(qfinal);
+        String a = Ontology.GetResultAsString(qfinal);
         
         return Response
                .ok("ok")
