@@ -5,10 +5,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
+
 /**
  *
  * @author jeank
@@ -29,6 +31,7 @@ public class JavaEE8Resource {
                                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + 
                                     "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdfs:label ?lab " +
                                     "} ORDER BY ?label";
+        static String q ="";
   
     @GET
     @Path("json")
@@ -72,16 +75,17 @@ public class JavaEE8Resource {
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
     @GET
-    @Path("response")
+    @Path("response/{q}")
     @Produces("application/json")
     public void res(@Suspended
-    final AsyncResponse asyncResponse){
+    final AsyncResponse asyncResponse, @PathParam("q") String query){
             Future<?> submit = executorService.submit(() -> {
-                asyncResponse.resume(doRes());
+                asyncResponse.resume(doRes(query));
             });
     }
 
-    private Response doRes() {
+    private Response doRes(String query) {
+        System.out.println(query);
         String a = Ontology.GetResultAsString(queryTest2);
         
         return Response
