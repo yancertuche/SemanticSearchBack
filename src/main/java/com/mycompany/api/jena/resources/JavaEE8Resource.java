@@ -92,7 +92,9 @@ public class JavaEE8Resource {
                                     "}" ;
         System.out.println(qfinal);
         String a = Ontology.GetResultAsString(qfinal);
-        
+        if("nada".equals(a)){
+            a = "{results : { bindings:[{\"nada\"}]}}";
+        }
         return Response
                .ok("ok")
                .header("Access-Control-Allow-Origin", "*")
