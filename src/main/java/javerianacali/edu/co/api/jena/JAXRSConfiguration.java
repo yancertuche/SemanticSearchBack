@@ -1,4 +1,4 @@
-package com.mycompany.api.jena;
+package javerianacali.edu.co.api.jena;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
