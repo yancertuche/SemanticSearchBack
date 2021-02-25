@@ -31,46 +31,7 @@ public class JavaEE8Resource {
                                     "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdfs:label ?lab " +
                                     "} ORDER BY ?label";
         static String q ="";
-  
-    @GET
-    @Path("json")
-    @Produces("application/json")
-    public String json(){
-        return "{\n" +
-               "   \"eBooks\":[\n" +
-               "      {\n" +
-                "         \"language\":\"Pascal\",\n" +
-                "         \"edition\":\"third\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"language\":\"Python\",\n" +
-                "         \"edition\":\"four\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"language\":\"SQL\",\n" +
-                "         \"edition\":\"second\"\n" +
-                "      }\n" +
-                "   ]\n" +
-                "}";
-        /*return Response
-                .ok("ping")
-                .build(); */
-    }
-    @GET
-    @Path("xml")
-    @Produces("text/xml")
-    public String xml(){
-        return "<note>\n" +
-                "<to>Tove</to>\n" +
-                "<from>Jani</from>\n" +
-                "<heading>Reminder</heading>\n" +
-                "<body>Don't forget me this weekend!</body>\n" +
-                "</note>";
-        /*return Response
-                .ok("ping")
-                .build(); */
-    }
-    
+ 
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
     @GET
