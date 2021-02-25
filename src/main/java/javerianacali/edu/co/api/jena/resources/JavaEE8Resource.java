@@ -10,7 +10,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-
+import static javerianacali.edu.co.api.query.Query.bulidQuery;
+import org.apache.jena.atlas.json.JSON;
+import org.apache.jena.atlas.json.JsonObject;
 /**
  *
  * @author jeank
@@ -18,11 +20,6 @@ import javax.ws.rs.container.Suspended;
 @Path("javaee8")
 public class JavaEE8Resource {
     
-    //  String with a query in sparql formart t
-        static String PREFIX =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
         
         static String queryTest2 =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
@@ -46,20 +43,13 @@ public class JavaEE8Resource {
 
     private Response doRes(String query) {
         System.out.println(query);
-        String qfinal = PREFIX + "SELECT  ?x (STR(?lab) as ?label) " +
-                                    "where {" +
-                                    " ?x rdfs:label ?lab." +
-                                    " FILTER regex(?lab, \""+(query)+"\", \"i\")" +
-                                    "}" ;
+        String qfinal = bulidQuery(query);
         System.out.println(qfinal);
-        String a = Ontology.GetResultAsString(qfinal);
-        if("nada".equals(a)){
-            a = "{results : { bindings:[{\"nada\"}]}}";
-        }
+        String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
                .header("Access-Control-Allow-Origin", "*")
-               .entity(a)
+               .entity(result)
                .build();
     }  
 } 
