@@ -11,8 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import static javerianacali.edu.co.api.query.Query.bulidQuery;
-import org.apache.jena.atlas.json.JSON;
-import org.apache.jena.atlas.json.JsonObject;
 /**
  *
  * @author jeank
@@ -42,9 +40,9 @@ public class JavaEE8Resource {
     }
 
     private Response doRes(String query) {
-        System.out.println(query);
+        //System.out.println(query);
         String qfinal = bulidQuery(query);
-        System.out.println(qfinal);
+        //System.out.println(qfinal);
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")

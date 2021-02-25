@@ -9,8 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.jena.atlas.json.JSON;
-import org.apache.jena.atlas.json.JsonObject;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.QueryExecution;
@@ -54,10 +52,6 @@ public class Ontology {
                     result = new String(go.toByteArray(), "UTF-8");
                 }
                 else{
-                    // no encuentra nada 
-                    //JsonObject r = JSON.parse("{ results : { bindings:[{ NO RESULTS }] } }");
-                    //System.out.println("llegó a retornar");
-                    //return result = r.toString();
                     result = "{" +
                             "\"results\" : { "
                             + "\"bindings\": ["
