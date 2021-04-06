@@ -13,7 +13,8 @@ public class Query {
     static String PREFIX =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
+                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                                    "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#>";
 
     public static String getPREFIX() {
         return PREFIX;
@@ -27,10 +28,18 @@ public class Query {
                                     " FILTER regex(?lab, \""+(query)+"\", \"i\")" +
                                     "}" ;
         */
+        /*
         return getPREFIX() + "SELECT  distinct ?class" +
                                "WHERE { " +
                                         "?class a owl:Class  ."+
                                 "}" ;
-    }
-    
+        */
+        
+        return getPREFIX() + "SELECT ?x (STR(?lab) as ?label)" + 
+                            " where { ?x rdf:type owl:NamedIndividual ." +
+                            " optional { ?x rdf:ensayo ?lab} }" ;
+        
+   
+}
+
 }
