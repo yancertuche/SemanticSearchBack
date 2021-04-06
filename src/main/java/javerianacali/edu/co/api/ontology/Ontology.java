@@ -31,7 +31,7 @@ public class Ontology {
         OntModel mode = null;
         mode = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_RULE_INF );
         java.io.InputStream in = FileManager.get().open("C:\\Users\\jeank\\Documents\\"
-                                            + "spl-ontology-ontologies-owl-REVISION-HEAD\\spl.owl" ); 
+                                            + "spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl" ); 
         if (in == null) {
             throw new IllegalArgumentException("Archivo de ontología no encontrado");
         }
@@ -50,6 +50,7 @@ public class Ontology {
                     ByteArrayOutputStream go = new ByteArrayOutputStream ();
                     ResultSetFormatter.outputAsJSON(go, results);
                     result = new String(go.toByteArray(), "UTF-8");
+                    
                 }
                 else{
                     result = "{" +

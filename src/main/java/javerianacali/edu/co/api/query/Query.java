@@ -20,12 +20,17 @@ public class Query {
     }
     
     public static String bulidQuery(String query){
+        /*
         return getPREFIX() +  "SELECT  ?x (STR(?lab) as ?label) " +
                                     "where {" +
                                     " ?x rdfs:label ?lab." +
                                     " FILTER regex(?lab, \""+(query)+"\", \"i\")" +
                                     "}" ;
-        
+        */
+        return getPREFIX() + "SELECT  distinct ?class" +
+                               "WHERE { " +
+                                        "?class a owl:Class  ."+
+                                "}" ;
     }
     
 }
