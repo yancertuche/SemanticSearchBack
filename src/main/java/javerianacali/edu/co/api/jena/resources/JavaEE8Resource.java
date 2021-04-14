@@ -42,7 +42,7 @@ public class JavaEE8Resource {
     private Response doRes(String query) {
         //System.out.println(query);
         String qfinal = bulidQuery(query);
-        //System.out.println(qfinal);
+        System.out.println(qfinal);
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")

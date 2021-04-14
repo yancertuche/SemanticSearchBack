@@ -34,11 +34,16 @@ public class Query {
                                         "?class a owl:Class  ."+
                                 "}" ;
         */
-        
+        /*
         return getPREFIX() + "SELECT ?x (STR(?lab) as ?label)" + 
                             " where { ?x rdf:type owl:NamedIndividual ." +
                             " optional { ?x rdf:ensayo ?lab} }" ;
-        
+        */
+        return getPREFIX() + " SELECT ?anyAutor (STR(?name) as ?nameAutor)" +
+                               " WHERE {?anyAutor a uri:AUTOR." +
+                            " OPTIONAL {?anyAutor uri:Name ?name}" +
+                            " FILTER regex(?name, \""+(query)+"\", \"i\")" +
+                                "}";
    
 }
 

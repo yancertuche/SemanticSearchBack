@@ -25,13 +25,12 @@ import org.apache.jena.util.FileManager;
 public class Ontology {
    
     static  String  result;
-    
+    static String OwlFile = "C:\\Users\\jeank\\Documents\\spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl";
     //Method than load de OWL file of SPL and return a Ontology Model 
     public static OntModel onto() {
         OntModel mode = null;
         mode = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_RULE_INF );
-        java.io.InputStream in = FileManager.get().open("C:\\Users\\jeank\\Documents\\"
-                                            + "spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl" ); 
+        java.io.InputStream in = FileManager.get().open(OwlFile); 
         if (in == null) {
             throw new IllegalArgumentException("Archivo de ontología no encontrado");
         }
