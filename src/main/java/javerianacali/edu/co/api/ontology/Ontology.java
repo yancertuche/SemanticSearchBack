@@ -24,13 +24,25 @@ import org.apache.jena.util.FileManager;
  */
 public class Ontology {
    
-    static  String  result;
-    static String OwlFile = "C:\\Users\\jeank\\Documents\\spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl";
+    static  String result;
+    static String OWLFILE = "C:\\Users\\jeank\\Documents\\spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl";
+    static String NORESULT = "{" +
+                            "\"results\" : { "
+                            + "\"bindings\": ["
+                            + "{\"anyAutor\" : {"
+                                + "\"type\": \"uri\" , "
+                                + "\"value\": \"xxxxxxxxxx\""
+                            +"} , "
+                            + "\"nameAutor\" : {"
+                                + "\"type\": \"resut\" , "
+                                + "\"value\": \"No Results\""
+                            + "}}]}}";
+    
     //Method than load de OWL file of SPL and return a Ontology Model 
     public static OntModel onto() {
         OntModel mode = null;
         mode = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_RULE_INF );
-        java.io.InputStream in = FileManager.get().open(OwlFile); 
+        java.io.InputStream in = FileManager.get().open(OWLFILE); 
         if (in == null) {
             throw new IllegalArgumentException("Archivo de ontología no encontrado");
         }
@@ -52,17 +64,7 @@ public class Ontology {
                     
                 }
                 else{
-                    result = "{" +
-                            "\"results\" : { "
-                            + "\"bindings\": ["
-                            + "{\"anyAutor\" : {"
-                                + "\"type\": \"uri\" , "
-                                + "\"value\": \"xxxxxxxxxx\""
-                            +"} , "
-                            + "\"nameAutor\" : {"
-                                + "\"type\": \"resut\" , "
-                                + "\"value\": \"No Results\""
-                            + "}}]}}";
+                    result = NORESULT;
                 }
             }
          catch (UnsupportedEncodingException ex) {
