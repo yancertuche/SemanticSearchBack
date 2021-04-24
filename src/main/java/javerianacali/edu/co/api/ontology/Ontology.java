@@ -55,11 +55,11 @@ public class Ontology {
                     result = "{" +
                             "\"results\" : { "
                             + "\"bindings\": ["
-                            + "{\"x\" : {"
+                            + "{\"anyAutor\" : {"
                                 + "\"type\": \"uri\" , "
                                 + "\"value\": \"xxxxxxxxxx\""
                             +"} , "
-                            + "\"label\" : {"
+                            + "\"nameAutor\" : {"
                                 + "\"type\": \"resut\" , "
                                 + "\"value\": \"No Results\""
                             + "}}]}}";
