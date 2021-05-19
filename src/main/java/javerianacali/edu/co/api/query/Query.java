@@ -39,11 +39,18 @@ public class Query {
                             " where { ?x rdf:type owl:NamedIndividual ." +
                             " optional { ?x rdf:ensayo ?lab} }" ;
         */
+        /*
         return getPREFIX() + " SELECT ?anyAutor (STR(?name) as ?nameAutor)" +
                                " WHERE {?anyAutor a uri:AUTOR." +
                             " OPTIONAL {?anyAutor uri:Name ?name}" +
                             " FILTER regex(?name, \""+(query)+"\", \"i\")" +
-                                "}";
+                                "}"; */
+        return getPREFIX() + " SELECT (STR(?x) as ?Name) (STR(?description) as ?Report) " +
+                            "WHERE { " +
+                            "?x  a uri:"+(query)+".  " +
+                            "?x  uri:Description ?description " +
+                            "}";
+       
    
 }
 

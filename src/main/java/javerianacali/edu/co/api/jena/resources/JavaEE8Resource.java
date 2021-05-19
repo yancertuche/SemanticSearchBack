@@ -15,7 +15,7 @@ import static javerianacali.edu.co.api.query.Query.bulidQuery;
  *
  * @author jeank
  */
-@Path("javaee8")
+@Path("response")
 public class JavaEE8Resource {
     
         
@@ -30,7 +30,7 @@ public class JavaEE8Resource {
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
     @GET
-    @Path("response/search/q={q}")
+    @Path("search/q={q}")
     @Produces("application/json")
     public void res(@Suspended
     final AsyncResponse asyncResponse, @PathParam("q") String query){

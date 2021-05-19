@@ -29,11 +29,11 @@ public class Ontology {
     static String NORESULT = "{" +
                             "\"results\" : { "
                             + "\"bindings\": ["
-                            + "{\"anyAutor\" : {"
+                            + "{\"Name\" : {"
                                 + "\"type\": \"uri\" , "
                                 + "\"value\": \"xxxxxxxxxx\""
                             +"} , "
-                            + "\"nameAutor\" : {"
+                            + "\"Report\" : {"
                                 + "\"type\": \"resut\" , "
                                 + "\"value\": \"No Results\""
                             + "}}]}}";
@@ -56,6 +56,7 @@ public class Ontology {
             org.apache.jena.query.Query query = QueryFactory.create(Query);
             QueryExecution qe = QueryExecutionFactory.create(query, onto());
             org.apache.jena.query.ResultSet results = qe.execSelect();
+            System.out.println(results);
             
                 if(results.hasNext()){
                     ByteArrayOutputStream go = new ByteArrayOutputStream ();
