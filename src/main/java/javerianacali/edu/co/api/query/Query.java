@@ -44,13 +44,26 @@ public class Query {
                                " WHERE {?anyAutor a uri:AUTOR." +
                             " OPTIONAL {?anyAutor uri:Name ?name}" +
                             " FILTER regex(?name, \""+(query)+"\", \"i\")" +
-                                "}"; */
+                                "}"; 
         return getPREFIX() + " SELECT (STR(?x) as ?Name) (STR(?description) as ?Report) " +
                             "WHERE { " +
                             "?x  a uri:"+(query)+".  " +
                             "?x  uri:Description ?description " +
                             "}";
-       
+       */
+        
+        return getPREFIX() + " SELECT (STR(?x) as ?Uri) (STR(?description) as ?Report) (STR(?name) as ?NameAutor) " +
+                        "(STR(?title) as ?Title)  (STR(?url) as ?Url) (STR(?year) as ?Year)   (STR(?paper) as ?Paper) "+
+                        "WHERE { ?x  a uri:" +(query)+ ". " + 
+                        "?x  uri:Description ?description. " +
+                        "?x uri:showA ?paper. " +
+                        "?paper uri:Year ?year. " +
+                        "?paper uri:Title ?title. "+
+                        "?paper uri:Url ?url. "+
+                        "?paper uri:Title ?title. "+
+                        "?paper uri:writeBy ?uriName. "+
+                        "?uriName uri:Name ?name. "+
+                        "}";
    
 }
 

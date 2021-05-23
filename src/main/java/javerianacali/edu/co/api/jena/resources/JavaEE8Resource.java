@@ -17,14 +17,7 @@ import static javerianacali.edu.co.api.query.Query.bulidQuery;
  */
 @Path("response")
 public class JavaEE8Resource {
-    
-        
-        static String queryTest2 =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + 
-                                    "SELECT distinct ?x ( STR(?lab) as ?label ) WHERE {?x rdfs:label ?lab " +
-                                    "} ORDER BY ?label";
+ 
         static String q ="";
  
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
