@@ -25,7 +25,7 @@ import org.apache.jena.util.FileManager;
 public class Ontology {
    
     static  String result;
-    static String OWLFILE = "C:\\Users\\jeank\\Documents\\spl-ontology-ontologies-owl-REVISION-HEAD\\IC-SPL-ontology.owl";
+    static String OWLFILE = "C:\\Users\\jeank\\Documents\\Ontologias\\IC-SPL-ontology.owl";
     static String NORESULT = "{" +
                             "\"results\" : { "
                             + "\"bindings\": ["

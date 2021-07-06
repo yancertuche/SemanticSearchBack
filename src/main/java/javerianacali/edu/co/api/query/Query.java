@@ -14,7 +14,7 @@ public class Query {
                                     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-                                    "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#>";
+                                    "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#> ";
 
     public static String getPREFIX() {
         return PREFIX;
@@ -50,12 +50,12 @@ public class Query {
                             "?x  a uri:"+(query)+".  " +
                             "?x  uri:Description ?description " +
                             "}";
-       */
+       
         
         return getPREFIX() + " SELECT (STR(?x) as ?Uri) (STR(?description) as ?Report) (STR(?name) as ?NameAutor) " +
                         "(STR(?title) as ?Title)  (STR(?url) as ?Url) (STR(?year) as ?Year)   (STR(?paper) as ?Paper) "+
                         "WHERE { ?x  a uri:" +(query)+ ". " + 
-                        "?x  uri:Description ?description. " +
+                        "OPTIONAL ?x  uri:Description ?description. " +
                         "?x uri:showA ?paper. " +
                         "?paper uri:Year ?year. " +
                         "?paper uri:Title ?title. "+
@@ -64,7 +64,18 @@ public class Query {
                         "?paper uri:writeBy ?uriName. "+
                         "?uriName uri:Name ?name. "+
                         "}";
-   
-}
 
+        */
+        
+        return getPREFIX() + "SELECT * " +
+                        "WHERE { " +
+                                "?paperType rdfs:label \""+(query)+"\"@en. "+
+                                "?papers a ?paperType . " +
+                        "optional{ ?papers uri:writeBy ?autor . " +
+                                "?papers uri:Title ?Title. "+
+                                "?autor uri:Name ?NameAutor " +
+                                "}. " +
+                        "optional{ ?papers uri:hasCompany ?comp. " +
+                                "?comp uri:CompanyName ?nameCompany} } ";
+} 
 }

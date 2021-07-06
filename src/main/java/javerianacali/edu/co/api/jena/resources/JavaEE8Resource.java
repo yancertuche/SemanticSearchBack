@@ -71,4 +71,7 @@ public class JavaEE8Resource {
                 .entity(result)
                 .build();
     }
+    
+    
+    
 } 
