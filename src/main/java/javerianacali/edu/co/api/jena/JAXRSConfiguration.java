@@ -7,7 +7,7 @@ import javax.ws.rs.core.Application;
  * Configures JAX-RS for the application.
  * @author Yan Carlos Certuche Grueso
  */
-@ApplicationPath("resources")
+@ApplicationPath("v1")
 public class JAXRSConfiguration extends Application {
     
 }

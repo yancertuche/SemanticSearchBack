@@ -80,9 +80,14 @@ public class Query {
     } 
     
     public static String getClassesQuery(){
-        return getPREFIX() + "SELECT ?subject "+ 
-            "WHERE { ?subject rdfs:subClassOf ?object } " +
-            "ORDER BY ?subject ";
+        return getPREFIX() + "SELECT DISTINCT ?subClass ?object "+ 
+            "WHERE { ?subClass rdfs:subClassOf ?object. ?object rdf:type owl:Class. } " +
+            "ORDER BY ?subClass ";
     }
     
+    public static String getInstancesClass(){
+        return getPREFIX() + "SELECT DISTINCT  ?instance (STR(?class) as ?x) "+
+            "WHERE {?instance a ?class . ?class a owl:Class. "+
+            "} "    ;
+    }
 }

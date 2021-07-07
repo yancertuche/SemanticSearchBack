@@ -3,13 +3,16 @@ package javerianacali.edu.co.api.jena.resources;
 import javerianacali.edu.co.api.ontology.Ontology;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
+import javax.ws.rs.core.MediaType;
 import javerianacali.edu.co.api.query.Query;
 import static javerianacali.edu.co.api.query.Query.*;
 
@@ -17,7 +20,7 @@ import static javerianacali.edu.co.api.query.Query.*;
  *
  * @author jeank
  */
-@Path("response")
+@Path("ontology")
 public class JavaEE8Resource {
  
     static String q ="select (count( distinct ?instance)  as ?cou) ?class " +
@@ -94,5 +97,30 @@ public class JavaEE8Resource {
                .header("Access-Control-Allow-Origin", "*")
                .entity(result)
                .build();
-    }    
+    } 
+    
+    //Service for get all instances by Class
+    @POST
+    @Path("/instances")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public void doGetInstancesClass(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                
+                asyncResponse.resume(getInstancesClass());
+            });
+    }
+
+    private Response getInstancesClass() {
+        String qfinal = Query.getInstancesClass();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .header("Access-Control-Allow-Origin", "*")
+               .entity(result)
+               .build();
+    }
+    
+    
 } 
