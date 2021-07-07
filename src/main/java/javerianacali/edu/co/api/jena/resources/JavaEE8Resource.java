@@ -10,7 +10,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import static javerianacali.edu.co.api.query.Query.bulidQuery;
+import javerianacali.edu.co.api.query.Query;
+import static javerianacali.edu.co.api.query.Query.*;
+
 /**
  *
  * @author jeank
@@ -18,18 +20,18 @@ import static javerianacali.edu.co.api.query.Query.bulidQuery;
 @Path("response")
 public class JavaEE8Resource {
  
-        static String q ="select (count( distinct ?instance)  as ?cou) ?class " +
-" where {?instance a ?class . ?class a owl:Class} " +
-"group by ?class " +
-"order by ?cou";
-        static String PREFIX =   "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-                                    "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#>";
+    static String q ="select (count( distinct ?instance)  as ?cou) ?class " +
+    " where {?instance a ?class . ?class a owl:Class} " +
+    "group by ?class " +
+    "order by ?cou";
+    static String PREFIX =  "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+                            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                            "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#>";
  
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
-    
+    //Principal Service
     @GET
     @Path("search/q={q}")
     @Produces("application/json")
@@ -52,6 +54,7 @@ public class JavaEE8Resource {
                .build();
     }  
     
+    // Service for dona graphic
     @GET
     @Path("/dona")
     @Produces("application/json")
@@ -72,6 +75,24 @@ public class JavaEE8Resource {
                 .build();
     }
     
-    
-    
+    //Service for get all classes from ontology
+    @GET
+    @Path("/classes")
+    @Produces("application/json")
+    public void doGetClasses(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getClasses());
+            });
+    }
+
+    private Response getClasses() {
+        String qfinal = Query.getClassesQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .header("Access-Control-Allow-Origin", "*")
+               .entity(result)
+               .build();
+    }    
 } 

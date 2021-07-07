@@ -77,5 +77,12 @@ public class Query {
                                 "}. " +
                         "optional{ ?papers uri:hasCompany ?comp. " +
                                 "?comp uri:CompanyName ?nameCompany} } ";
-} 
+    } 
+    
+    public static String getClassesQuery(){
+        return getPREFIX() + "SELECT ?subject "+ 
+            "WHERE { ?subject rdfs:subClassOf ?object } " +
+            "ORDER BY ?subject ";
+    }
+    
 }
