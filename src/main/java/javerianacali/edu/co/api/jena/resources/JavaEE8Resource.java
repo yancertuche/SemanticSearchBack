@@ -80,7 +80,7 @@ public class JavaEE8Resource {
     
     //Service for get all classes from ontology
     @GET
-    @Path("/classes")
+    @Path("/class")
     @Produces("application/json")
     public void doGetClasses(@Suspended final AsyncResponse asyncResponse){
             executorService.submit(() -> {
@@ -101,7 +101,7 @@ public class JavaEE8Resource {
     
     //Service for get all instances by Class
     @POST
-    @Path("/instances")
+    @Path("/instance")
     @Produces("application/json")
     @Consumes("application/json")
     public void doGetInstancesClass(@Suspended final AsyncResponse asyncResponse,
@@ -113,6 +113,30 @@ public class JavaEE8Resource {
 
     private Response getInstancesClass(ClassMessage classIn) {
         String qfinal = Query.getInstancesClass();
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .header("Access-Control-Allow-Origin", "*")
+               .entity(result)
+               .build();
+    }
+    
+    //Service for get relations by class
+    @POST
+    @Path("/relation")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public void doGetRelationByClass(@Suspended final AsyncResponse asyncResponse,
+            ClassMessage bodyRequest ){
+            executorService.submit(() -> {
+                asyncResponse.resume(getRelationByClass(bodyRequest));
+            });
+    }
+
+    private Response getRelationByClass(ClassMessage classIn) {
+        System.out.println(classIn.getClassIn());
+        String qfinal = Query.getRelationsByClass(classIn.getClassIn());
+        System.out.println(qfinal);
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")

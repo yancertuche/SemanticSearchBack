@@ -15,6 +15,11 @@ public class Query {
                                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                                     "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#> ";
+    static String URI = "http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#";
+    
+    public static String getURI(){
+        return URI;
+    }
 
     public static String getPREFIX() {
         return PREFIX;
@@ -89,5 +94,14 @@ public class Query {
         return getPREFIX() + "SELECT DISTINCT  ?instance (STR(?class) as ?x) "+
             "WHERE {?instance a ?class . ?class a owl:Class. "+
             "} "    ;
+    }
+    
+    public static String getRelationsByClass(String classIn){
+        return getPREFIX() + "SELECT ?domain ?Property  ?range " +
+            "WHERE { "+
+            "?Property rdfs:domain ?domain. "+
+            "?Property rdfs:range ?range. "+
+            "FILTER(regex(str(?domain),\""+getURI()+classIn+"\", \"i\" )) " +
+            "} "  ;  
     }
 }
