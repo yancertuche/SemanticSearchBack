@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import javax.ws.rs.core.MediaType;
+import javerianacali.edu.co.api.beans.ClassMessage;
 import javerianacali.edu.co.api.query.Query;
 import static javerianacali.edu.co.api.query.Query.*;
 
@@ -104,16 +104,15 @@ public class JavaEE8Resource {
     @Path("/instances")
     @Produces("application/json")
     @Consumes("application/json")
-    public void doGetInstancesClass(@Suspended final AsyncResponse asyncResponse){
+    public void doGetInstancesClass(@Suspended final AsyncResponse asyncResponse,
+            ClassMessage bodyRequest ){
             executorService.submit(() -> {
-                
-                asyncResponse.resume(getInstancesClass());
+                asyncResponse.resume(getInstancesClass(bodyRequest));
             });
     }
 
-    private Response getInstancesClass() {
+    private Response getInstancesClass(ClassMessage classIn) {
         String qfinal = Query.getInstancesClass();
-        System.out.println(qfinal);
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
