@@ -52,7 +52,6 @@ public class JavaEE8Resource {
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
-               .header("Access-Control-Allow-Origin", "*")
                .entity(result)
                .build();
     }  
@@ -73,7 +72,6 @@ public class JavaEE8Resource {
         String result = Ontology.GetResultAsString( PREFIX + q);
         return Response
                 .ok("ok")
-                .header("Access-Control-Allow-Origin", "*")
                 .entity(result)
                 .build();
     }
@@ -94,7 +92,6 @@ public class JavaEE8Resource {
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
-               .header("Access-Control-Allow-Origin", "*")
                .entity(result)
                .build();
     } 
@@ -116,7 +113,6 @@ public class JavaEE8Resource {
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
-               .header("Access-Control-Allow-Origin", "*")
                .entity(result)
                .build();
     }
@@ -140,7 +136,6 @@ public class JavaEE8Resource {
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
-               .header("Access-Control-Allow-Origin", "*")
                .entity(result)
                .build();
     }
