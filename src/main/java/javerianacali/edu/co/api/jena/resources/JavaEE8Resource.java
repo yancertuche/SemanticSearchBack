@@ -112,7 +112,7 @@ public class JavaEE8Resource {
     }
 
     private Response getInstancesClass(ClassMessage classIn) {
-        String qfinal = Query.getInstancesClass();
+        String qfinal = Query.getInstancesClass(classIn.getClassIn());
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")

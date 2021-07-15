@@ -85,18 +85,24 @@ public class Query {
     } 
     
     public static String getClassesQuery(){
-        return getPREFIX() + "SELECT DISTINCT ?subClass ?class " + 
+        return getPREFIX() + "SELECT DISTINCT ?labelClass ?labelSubClass " + 
             "WHERE { ?subClass rdfs:subClassOf ?class. ?class a owl:Class. " +
+            "?class rdfs:label ?labelClass. "+
+            "?subClass rdfs:label ?labelSubClass. "+
             "FILTER(regex(str(?subClass),\""+getURI()+"*\", \"i\" )). " +
             "FILTER(regex(str(?class),\""+getURI()+"*\", \"i\" )) " +
-            "FILTER(?subClass != ?class)}"+
-            "ORDER BY ?subClass " ;
+            "FILTER(?subClass != ?class). "+
+            "FILTER (lang(?labelSubClass) = \"en\" )}"+
+            "ORDER BY ?class " ;
     }
     
-    public static String getInstancesClass(){
-        return getPREFIX() + "SELECT DISTINCT  ?instance (STR(?class) as ?x) "+
-            "WHERE {?instance a ?class . ?class a owl:Class. "+
-            "} "    ;
+    public static String getInstancesClass(String classIn){
+        return getPREFIX() + "SELECT DISTINCT  ?labelInstance " +
+            "WHERE {?instance a ?class . "+
+            "?class a owl:Class. "+
+            "?instance rdfs:label ?labelInstance " +
+            "FILTER(regex(str(?class),\""+getURI()+classIn+"\", \"i\" )). "+
+            " FILTER (lang(?labelInstance) = \"en\" ) } "   ;
     }
     
     public static String getRelationsByClass(String classIn){
