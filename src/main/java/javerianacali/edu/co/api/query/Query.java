@@ -98,9 +98,24 @@ public class Query {
     
     public static String getInstancesClass(String classIn){
         return getPREFIX() + "SELECT DISTINCT  ?labelInstance " +
+            "?description ?amount ?categories ?companyName ?context ?metric "+
+            "?name ?productName ?size ?title ?type ?url ?year "+
             "WHERE {?instance a ?class . "+
             "?class a owl:Class. "+
             "?instance rdfs:label ?labelInstance " +
+            "OPTIONAL{?instance uri:Description ?description} "+
+            "OPTIONAL{?instance uri:Amount ?amount} "+
+            "OPTIONAL{?instance uri:Categories ?categories} "+
+            "OPTIONAL{?instance uri:companyName ?companyName} "+
+            "OPTIONAL{?instance uri:Context ?context} "+
+            "OPTIONAL{?instance uri:metric ?metric} "+
+            "OPTIONAL{?instance uri:Name ?name} "+
+            "OPTIONAL{?instance uri:productName ?productName} "+
+            "OPTIONAL{?instance uri:Size ?size} "+
+            "OPTIONAL{?instance uri:Title ?title} "+
+            "OPTIONAL{?instance uri:Type ?type} "+
+            "OPTIONAL{?instance uri:Url ?url} "+
+            "OPTIONAL{?instance uri:Year ?year} "+
             "FILTER(regex(str(?class),\""+getURI()+classIn+"\", \"i\" )). "+
             " FILTER (lang(?labelInstance) = \"en\" ) } "   ;
     }
