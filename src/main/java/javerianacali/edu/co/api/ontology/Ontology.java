@@ -33,7 +33,7 @@ public class Ontology {
                                 + "\"type\": \"uri\" , "
                                 + "\"value\": \"xxxxxxxxxx\""
                             +"} , "
-                            + "\"Report\" : {"
+                            + "\"labelInstance\" : {"
                                 + "\"type\": \"resut\" , "
                                 + "\"value\": \"No Results\""
                             + "}}]}}";

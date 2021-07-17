@@ -99,7 +99,7 @@ public class Query {
     public static String getInstancesClass(String classIn){
         return getPREFIX() + "SELECT DISTINCT  ?labelInstance " +
             "?description ?amount ?categories ?companyName ?context ?metric "+
-            "?name ?productName ?size ?title ?type ?url ?year "+
+            "?name ?productName ?size ?title ?type ?year ?url  "+
             "WHERE {?instance a ?class . "+
             "?class a owl:Class. "+
             "?instance rdfs:label ?labelInstance " +
