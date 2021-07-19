@@ -97,27 +97,27 @@ public class Query {
     }
     
     public static String getInstancesClass(String classIn){
-        return getPREFIX() + "SELECT DISTINCT  ?labelInstance " +
-            "?description ?amount ?categories ?companyName ?context ?metric "+
-            "?name ?productName ?size ?title ?type ?year ?url  "+
+        return getPREFIX() + "SELECT DISTINCT  ?Instance " +
+            "?Description ?Amount ?Categories ?CompanyName ?Context ?Metric "+
+            "?Name ?ProductName ?Size ?Title ?Type ?Year ?url  "+
             "WHERE {?instance a ?class . "+
             "?class a owl:Class. "+
-            "?instance rdfs:label ?labelInstance " +
-            "OPTIONAL{?instance uri:Description ?description} "+
-            "OPTIONAL{?instance uri:Amount ?amount} "+
-            "OPTIONAL{?instance uri:Categories ?categories} "+
-            "OPTIONAL{?instance uri:companyName ?companyName} "+
-            "OPTIONAL{?instance uri:Context ?context} "+
-            "OPTIONAL{?instance uri:metric ?metric} "+
-            "OPTIONAL{?instance uri:Name ?name} "+
-            "OPTIONAL{?instance uri:productName ?productName} "+
-            "OPTIONAL{?instance uri:Size ?size} "+
-            "OPTIONAL{?instance uri:Title ?title} "+
-            "OPTIONAL{?instance uri:Type ?type} "+
+            "?instance rdfs:label ?Instance " +
+            "OPTIONAL{?instance uri:Description ?Description} "+
+            "OPTIONAL{?instance uri:Amount ?Amount} "+
+            "OPTIONAL{?instance uri:Categories ?Categories} "+
+            "OPTIONAL{?instance uri:companyName ?CompanyName} "+
+            "OPTIONAL{?instance uri:Context ?Context} "+
+            "OPTIONAL{?instance uri:metric ?Metric} "+
+            "OPTIONAL{?instance uri:Name ?Name} "+
+            "OPTIONAL{?instance uri:productName ?ProductName} "+
+            "OPTIONAL{?instance uri:Size ?Size} "+
+            "OPTIONAL{?instance uri:Title ?Title} "+
+            "OPTIONAL{?instance uri:Type ?Type} "+
             "OPTIONAL{?instance uri:Url ?url} "+
-            "OPTIONAL{?instance uri:Year ?year} "+
+            "OPTIONAL{?instance uri:Year ?Year} "+
             "FILTER(regex(str(?class),\""+getURI()+classIn+"\", \"i\" )). "+
-            " FILTER (lang(?labelInstance) = \"en\" ) } "   ;
+            " FILTER (lang(?Instance) = \"en\" ) } "   ;
     }
     
     public static String getRelationsByClass(String classIn){
