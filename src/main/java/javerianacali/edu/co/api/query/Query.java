@@ -121,11 +121,16 @@ public class Query {
     }
     
     public static String getRelationsByClass(String classIn){
-        return getPREFIX() + "SELECT ?domain ?Property  ?range " +
+        return getPREFIX() + "SELECT DISTINCT ?property ?Domain ?Range " +
             "WHERE { "+
             "?Property rdfs:domain ?domain. "+
             "?Property rdfs:range ?range. "+
+            "?Property rdfs:label ?property. "+
+            "?domain rdfs:label ?Domain. "+
+            "?range rdfs:label ?Range. "+
             "FILTER(regex(str(?domain),\""+getURI()+classIn+"\", \"i\" )) " +
+            "FILTER(regex(str(?Property),\""+getURI()+"*\", \"i\" )). " +
+            "FILTER(regex(str(?range),\""+getURI()+"*\", \"i\" )). " +
             "} "  ;  
     }
 }
