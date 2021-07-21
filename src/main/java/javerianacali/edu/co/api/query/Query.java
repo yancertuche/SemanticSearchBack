@@ -5,6 +5,8 @@
  */
 package javerianacali.edu.co.api.query;
 
+import javerianacali.edu.co.api.beans.CrcMessage;
+
 /**
  *
  * @author jeank
@@ -25,63 +27,28 @@ public class Query {
         return PREFIX;
     }
     
-    public static String bulidQuery(String query){
-        /*
-        return getPREFIX() +  "SELECT  ?x (STR(?lab) as ?label) " +
-                                    "where {" +
-                                    " ?x rdfs:label ?lab." +
-                                    " FILTER regex(?lab, \""+(query)+"\", \"i\")" +
-                                    "}" ;
-        */
-        /*
-        return getPREFIX() + "SELECT  distinct ?class" +
-                               "WHERE { " +
-                                        "?class a owl:Class  ."+
-                                "}" ;
-        */
-        /*
-        return getPREFIX() + "SELECT ?x (STR(?lab) as ?label)" + 
-                            " where { ?x rdf:type owl:NamedIndividual ." +
-                            " optional { ?x rdf:ensayo ?lab} }" ;
-        */
-        /*
-        return getPREFIX() + " SELECT ?anyAutor (STR(?name) as ?nameAutor)" +
-                               " WHERE {?anyAutor a uri:AUTOR." +
-                            " OPTIONAL {?anyAutor uri:Name ?name}" +
-                            " FILTER regex(?name, \""+(query)+"\", \"i\")" +
-                                "}"; 
-        return getPREFIX() + " SELECT (STR(?x) as ?Name) (STR(?description) as ?Report) " +
-                            "WHERE { " +
-                            "?x  a uri:"+(query)+".  " +
-                            "?x  uri:Description ?description " +
-                            "}";
-       
-        
-        return getPREFIX() + " SELECT (STR(?x) as ?Uri) (STR(?description) as ?Report) (STR(?name) as ?NameAutor) " +
-                        "(STR(?title) as ?Title)  (STR(?url) as ?Url) (STR(?year) as ?Year)   (STR(?paper) as ?Paper) "+
-                        "WHERE { ?x  a uri:" +(query)+ ". " + 
-                        "OPTIONAL ?x  uri:Description ?description. " +
-                        "?x uri:showA ?paper. " +
-                        "?paper uri:Year ?year. " +
-                        "?paper uri:Title ?title. "+
-                        "?paper uri:Url ?url. "+
-                        "?paper uri:Title ?title. "+
-                        "?paper uri:writeBy ?uriName. "+
-                        "?uriName uri:Name ?name. "+
-                        "}";
-
-        */
-        
-        return getPREFIX() + "SELECT * " +
-                        "WHERE { " +
-                                "?paperType rdfs:label \""+(query)+"\"@en. "+
-                                "?papers a ?paperType . " +
-                        "optional{ ?papers uri:writeBy ?autor . " +
-                                "?papers uri:Title ?Title. "+
-                                "?autor uri:Name ?NameAutor " +
-                                "}. " +
-                        "optional{ ?papers uri:hasCompany ?comp. " +
-                                "?comp uri:CompanyName ?nameCompany} } ";
+    public static String buildQuery(CrcMessage body){
+        return getPREFIX() + "SELECT DISTINCT  ?Instance " +
+            "?Description ?Amount ?Categories ?CompanyName ?Context ?Metric "+
+            "?Name ?ProductName ?Size ?Title ?Type ?Year ?url  "+
+            "WHERE {?instance a ?class . "+
+            "?class a owl:Class. "+
+            "?instance rdfs:label ?Instance " +
+            "OPTIONAL{?instance uri:Description ?Description} "+
+            "OPTIONAL{?instance uri:Amount ?Amount} "+
+            "OPTIONAL{?instance uri:Categories ?Categories} "+
+            "OPTIONAL{?instance uri:companyName ?CompanyName} "+
+            "OPTIONAL{?instance uri:Context ?Context} "+
+            "OPTIONAL{?instance uri:metric ?Metric} "+
+            "OPTIONAL{?instance uri:Name ?Name} "+
+            "OPTIONAL{?instance uri:productName ?ProductName} "+
+            "OPTIONAL{?instance uri:Size ?Size} "+
+            "OPTIONAL{?instance uri:Title ?Title} "+
+            "OPTIONAL{?instance uri:Type ?Type} "+
+            "OPTIONAL{?instance uri:Url ?url} "+
+            "OPTIONAL{?instance uri:Year ?Year} "+
+            "FILTER(regex(str(?class),\""+getURI()+body.getClassIn1()+"\", \"i\" )). "+
+            " FILTER (lang(?Instance) = \"en\" ) } "   ;
     } 
     
     public static String getClassesQuery(){

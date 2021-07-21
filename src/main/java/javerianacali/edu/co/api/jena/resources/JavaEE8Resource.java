@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javerianacali.edu.co.api.beans.ClassMessage;
+import javerianacali.edu.co.api.beans.CrcMessage;
 import javerianacali.edu.co.api.query.Query;
 import static javerianacali.edu.co.api.query.Query.*;
 
@@ -34,27 +35,27 @@ public class JavaEE8Resource {
                             "PREFIX uri:<http://www.semanticweb.org/jeank/ontologies/2021/2/untitled-ontology-13#>";
  
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
-    //Principal Service
-    @GET
-    @Path("search/q={q}")
+    
+//Principal Service
+    @POST
+    @Path("/search")
     @Produces("application/json")
-    public void res(@Suspended
-    final AsyncResponse asyncResponse, @PathParam("q") String query){
-            Future<?> submit = executorService.submit(() -> {
-                asyncResponse.resume(doRes(query));
+    @Consumes("application/json")
+    public void doGetSearch(@Suspended final AsyncResponse asyncResponse,
+            CrcMessage bodyRequest ){
+            executorService.submit(() -> {
+                asyncResponse.resume(getSearch(bodyRequest));
             });
     }
 
-    private Response doRes(String query) {
-        //System.out.println(query);
-        String qfinal = bulidQuery(query);
-        System.out.println(qfinal);
+    private Response getSearch(CrcMessage classIn) {
+        String qfinal = Query.buildQuery(classIn);
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
                .entity(result)
                .build();
-    }  
+    }
     
     // Service for dona graphic
     @GET
@@ -140,5 +141,24 @@ public class JavaEE8Resource {
                .build();
     }
     
-    
+    /*@GET
+    @Path("search/q={q}")
+    @Produces("application/json")
+    public void res(@Suspended
+    final AsyncResponse asyncResponse, @PathParam("q") String query){
+            Future<?> submit = executorService.submit(() -> {
+                asyncResponse.resume(doRes(query));
+            });
+    }
+
+    private Response doRes(String query) {
+        //System.out.println(query);
+        String qfinal = bulidQuery(query);
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    } */ 
 } 
