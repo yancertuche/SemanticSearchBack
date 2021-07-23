@@ -53,12 +53,14 @@ public class Ontology {
     // method that execute a Query in SPARQL format and return the result like a string in Json format 
     public  static  String GetResultAsString(String Query){
         try {
+            System.out.println("Empezó la BÚSQUEDA");
             org.apache.jena.query.Query query = QueryFactory.create(Query);
             QueryExecution qe = QueryExecutionFactory.create(query, onto());
             org.apache.jena.query.ResultSet results = qe.execSelect();
             System.out.println(results);
             
                 if(results.hasNext()){
+                    System.out.println("Encontró algo");
                     ByteArrayOutputStream go = new ByteArrayOutputStream ();
                     ResultSetFormatter.outputAsJSON(go, results);
                     result = new String(go.toByteArray(), "UTF-8");

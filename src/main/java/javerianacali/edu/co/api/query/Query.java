@@ -27,28 +27,18 @@ public class Query {
         return PREFIX;
     }
     
-    public static String buildQuery(CrcMessage body){
-        return getPREFIX() + "SELECT DISTINCT  ?Instance " +
-            "?Description ?Amount ?Categories ?CompanyName ?Context ?Metric "+
-            "?Name ?ProductName ?Size ?Title ?Type ?Year ?url  "+
-            "WHERE {?instance a ?class . "+
-            "?class a owl:Class. "+
-            "?instance rdfs:label ?Instance " +
-            "OPTIONAL{?instance uri:Description ?Description} "+
-            "OPTIONAL{?instance uri:Amount ?Amount} "+
-            "OPTIONAL{?instance uri:Categories ?Categories} "+
-            "OPTIONAL{?instance uri:companyName ?CompanyName} "+
-            "OPTIONAL{?instance uri:Context ?Context} "+
-            "OPTIONAL{?instance uri:metric ?Metric} "+
-            "OPTIONAL{?instance uri:Name ?Name} "+
-            "OPTIONAL{?instance uri:productName ?ProductName} "+
-            "OPTIONAL{?instance uri:Size ?Size} "+
-            "OPTIONAL{?instance uri:Title ?Title} "+
-            "OPTIONAL{?instance uri:Type ?Type} "+
-            "OPTIONAL{?instance uri:Url ?url} "+
-            "OPTIONAL{?instance uri:Year ?Year} "+
-            "FILTER(regex(str(?class),\""+getURI()+body.getClassIn1()+"\", \"i\" )). "+
-            " FILTER (lang(?Instance) = \"en\" ) } "   ;
+    public static String buildQuery(String class1, String relation, String class2){
+        return getPREFIX() + "SELECT DISTINCT ?Instance ?Description ?Name ?Objeto  ?DescripcionRelacion  ?NameRelation " +
+	"WHERE { ?instance a ?class. "+
+	"?class a owl:Class. "+
+	"?instance uri:"+relation +" ?objeto. "+
+        "?instance rdfs:label ?Instance. "+
+        "?objeto rdfs:label ?Objeto. "+
+	"OPTIONAL{?objeto uri:Description ?DescripcionRelacion.} "+
+	"OPTIONAL{?instance uri:Description ?Description} "+
+	"OPTIONAL{?objeto uri:Name ?NameRelation.} "+
+	"OPTIONAL{?instance uri:Name ?Name} "+
+	"}"  ;
     } 
     
     public static String getClassesQuery(){

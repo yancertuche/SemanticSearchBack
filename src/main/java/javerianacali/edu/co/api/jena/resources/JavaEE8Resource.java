@@ -36,7 +36,7 @@ public class JavaEE8Resource {
  
     private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
-//Principal Service
+    //Principal Service
     @POST
     @Path("/search")
     @Produces("application/json")
@@ -49,7 +49,9 @@ public class JavaEE8Resource {
     }
 
     private Response getSearch(CrcMessage classIn) {
-        String qfinal = Query.buildQuery(classIn);
+        String qfinal = Query.buildQuery(classIn.getClassIn1(), classIn.getRelation(), classIn.getClassIn2());
+        System.out.println(qfinal);
+        System.out.println(classIn.getClassIn1() + classIn.getClassIn2() + classIn.getRelation());
         String result = Ontology.GetResultAsString(qfinal);
         return Response
                .ok("ok")
