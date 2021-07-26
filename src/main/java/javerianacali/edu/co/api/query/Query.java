@@ -90,4 +90,14 @@ public class Query {
             "FILTER(regex(str(?range),\""+getURI()+"*\", \"i\" )). " +
             "} "  ;  
     }
+    
+    public static String getDonaQuery(){
+        return getPREFIX() + "SELECT (count( distinct ?instance)  as ?counter)  ?NameClass "+
+            "WHERE {?instance a ?class . "+
+            "?class a owl:Class. "+
+            "?class rdfs:label ?NameClass} "+ 
+            "GROUP BY ?NameClass "+ 
+            "ORDER BY DESC(?counter) " +
+            "LIMIT 3 ";
+    }
 }
