@@ -28,16 +28,27 @@ public class Query {
     }
     
     public static String buildQuery(String class1, String relation, String class2){
-        return getPREFIX() + "SELECT DISTINCT ?Instance ?Description ?Name ?Objeto  ?DescripcionRelacion  ?NameRelation " +
-	"WHERE { ?instance a ?class. "+
+        return getPREFIX() + "SELECT DISTINCT ?Instance ?NameTool ?Description ?NameAutor ?Amount ?Title  ?Year ?url"+
+        "?ObjectRelated ?NameToolObjRelated ?DescripcionObjRelated  ?NameCompany ?TitleObjRelated  ?YearObjRelated ?UrlObjRelated " +
+        "WHERE { ?instance a ?class. "+
 	"?class a owl:Class. "+
 	"?instance uri:"+relation +" ?objeto. "+
         "?instance rdfs:label ?Instance. "+
-        "?objeto rdfs:label ?Objeto. "+
-	"OPTIONAL{?objeto uri:Description ?DescripcionRelacion.} "+
+        "?objeto rdfs:label ?ObjectRelated. "+
+	"OPTIONAL{?objeto uri:Description ?DescripcionObjRelated.} "+
 	"OPTIONAL{?instance uri:Description ?Description} "+
-	"OPTIONAL{?objeto uri:Name ?NameRelation.} "+
-	"OPTIONAL{?instance uri:Name ?Name} "+
+	"OPTIONAL{?objeto uri:Name ?NameCompany.} "+
+	"OPTIONAL{?instance uri:Name ?NameAutor} "+
+	"OPTIONAL{?objeto uri:toolName ?NameToolObjRelated.} "+
+	"OPTIONAL{?instance uri:toolName ?NameTool} "+
+	"OPTIONAL{?objeto uri:Amount ?AmountObjRelated.} "+
+	"OPTIONAL{?instance uri:Amount ?Amount} "+
+        "OPTIONAL{?objeto uri:Title ?TitleObjRelated.} "+
+	"OPTIONAL{?instance uri:Title ?Title} "+
+        "OPTIONAL{?objeto uri:Url ?UrlObjRelated.} "+
+	"OPTIONAL{?instance uri:Url ?url} "+
+        "OPTIONAL{?objeto uri:Year ?YearObjRelated.} "+
+	"OPTIONAL{?instance uri:Year ?Year} "+
 	"}"  ;
     } 
     
@@ -55,7 +66,7 @@ public class Query {
     
     public static String getInstancesClass(String classIn){
         return getPREFIX() + "SELECT DISTINCT  ?Instance " +
-            "?Description ?Amount ?Categories ?CompanyName ?Context ?Metric "+
+            "?NameTool ?Description ?Amount ?Categories ?CompanyName ?Context ?Metric "+
             "?Name ?ProductName ?Size ?Title ?Type ?Year ?url  "+
             "WHERE {?instance a ?class . "+
             "?class a owl:Class. "+
@@ -68,6 +79,7 @@ public class Query {
             "OPTIONAL{?instance uri:metric ?Metric} "+
             "OPTIONAL{?instance uri:Name ?Name} "+
             "OPTIONAL{?instance uri:productName ?ProductName} "+
+            "OPTIONAL{?instance uri:toolName ?NameTool} "+
             "OPTIONAL{?instance uri:Size ?Size} "+
             "OPTIONAL{?instance uri:Title ?Title} "+
             "OPTIONAL{?instance uri:Type ?Type} "+
