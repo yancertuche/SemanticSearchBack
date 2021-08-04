@@ -134,6 +134,26 @@ public class JavaEE8Resource {
                .build();
     }
     
+    //Service for get Data Source 
+    @GET
+    @Path("/paper")
+    @Produces("application/json")
+    public void doGetDataSource(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getDataSource());
+            });
+    }
+
+    private Response getDataSource() {
+        String qfinal = Query.getDataSourceQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
+    
     /*@GET
     @Path("search/q={q}")
     @Produces("application/json")

@@ -112,4 +112,16 @@ public class Query {
             "ORDER BY DESC(?counter) " +
             "LIMIT 3 ";
     }
+    
+    /* Query Data Source*/
+    public static String getDataSourceQuery(){
+        return getPREFIX() + "SELECT DISTINCT  ?Title ?Year ?url ?NameAutor " +
+            "WHERE { ?paper a ?class . ?class a owl:Class. "+ 
+            "?paper uri:Title ?Title. "+
+            "?paper uri:Year ?Year. "+
+            "?paper uri:writeBy ?Autor ."
+                + "?paper uri:Url ?url ."
+                + "?Autor rdfs:label ?NameAutor } ";
+    }
+    
 }
