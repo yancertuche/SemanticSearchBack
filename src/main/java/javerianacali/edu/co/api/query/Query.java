@@ -124,4 +124,60 @@ public class Query {
                 + "?Autor rdfs:label ?NameAutor } ";
     }
     
+    /*Query Benefits*/
+    public static String getBenefitsQuery(){
+        return getPREFIX() + "SELECT  ?Benefit   (count( Distinct  ?paper) as ?countp) " +
+            "WHERE { ?paper a ?class . ?class a owl:Class. " +
+            "?paper uri:reportedBenefit  ?benefit . " +
+            "?benefit rdfs:label ?Benefit }" +
+            "group by ?Benefit" ;
+    }
+    
+    /*Query Companies*/
+    public static String getCompaniesQuery(){
+        return getPREFIX()+ "SELECT   ?Companies ?Paper ?url " +
+            "WHERE { ?company a uri:Companies . " +
+            "?company  rdfs:label ?Companies. " +
+            "?company uri:hasPaper ?paper. " +
+            "?paper uri:Title ?Paper. " +
+            "?paper uri:Url ?url }";
+    }
+    
+    /* Query Challenges */
+    public static String getChallengesQuery(){
+        return getPREFIX()+ "SELECT Distinct ?Challenge  ?Company ?Title  ?url (count(DISTINCT ?paper) as ?Paper) " +
+            "where{?challenge a uri:Challenges.  ?challenge rdfs:label ?Challenge. " +
+            "?challenge uri:challengeOf  ?company. " +
+            "?company rdfs:label ?Company. " +
+            "?company uri:hasPaper ?paper. " +
+            "?paper uri:Title ?Title. " +
+            "?paper uri:Url ?url } " +
+            "GROUP BY ?Challenge  ?Company ?Title  ?url";
+    }
+    
+    /* Query Domains*/
+    public static String getDomainQuery(){
+        return getPREFIX() + "SELECT Distinct ?Domain ?Company  ?paper ?url " +
+            "where{?company a uri:Companies.  ?company rdfs:label ?Company. " +
+            "?company uri:hasDomain ?domain. ?domain rdfs:label ?Domain. " +
+            "?company uri:hasPaper ?paper. " +
+            "?paper uri:Title ?Title. " +
+            "?paper uri:Url ?url. " +
+            " }";
+    }
+    
+    /* Query teams*/
+    public static String getTeamsQuery(){
+        return getPREFIX() + "SELECT Distinct  ?paper ?Title ?Team ?Size ?Company ?CompanySize  ?url  " +
+            "where{?paper a uri:Papers.  " +
+            "?paper uri:useTeam ?team. " +
+            "?paper uri:hasCompany ?company. " +
+            "?team rdfs:label ?Team. " +
+            "?team uri:Size ?Size. " +
+            "?company rdfs:label ?Company. " +
+            "?company uri:SizeCompany ?CompanySize. " +
+            "?paper uri:Title ?Title. " +
+            "?paper uri:Url ?url " +
+            " }";
+    }
 }

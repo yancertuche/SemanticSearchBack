@@ -154,6 +154,103 @@ public class JavaEE8Resource {
                .build();
     }
     
+    //Service for get Benefits
+    @GET
+    @Path("/benefit")
+    @Produces("application/json")
+    public void doGetBenefits(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getBenefits());
+            });
+    }
+
+    private Response getBenefits() {
+        String qfinal = Query.getBenefitsQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
+    
+    @GET
+    @Path("/company")
+    @Produces("application/json")
+    public void doGetCompany(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getCompanies());
+            });
+    }
+
+    private Response getCompanies() {
+        String qfinal = Query.getCompaniesQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
+    
+    @GET
+    @Path("/challenge")
+    @Produces("application/json")
+    public void doGetChallenges(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getChallenges());
+            });
+    }
+
+    private Response getChallenges() {
+        String qfinal = Query.getChallengesQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
+    
+    /* Domain service */
+    @GET
+    @Path("/domain")
+    @Produces("application/json")
+    public void doGetDomains(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getDomains());
+            });
+    }
+
+    private Response getDomains() {     
+        String qfinal = Query.getDomainQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
+ 
+    /* teams service */
+    @GET
+    @Path("/team")
+    @Produces("application/json")
+    public void doGetTeams(@Suspended final AsyncResponse asyncResponse){
+            executorService.submit(() -> {
+                asyncResponse.resume(getTeams());
+            });
+    }
+
+    private Response getTeams() {     
+        String qfinal = Query.getTeamsQuery();
+        System.out.println(qfinal);
+        String result = Ontology.GetResultAsString(qfinal);
+        return Response
+               .ok("ok")
+               .entity(result)
+               .build();
+    }
     /*@GET
     @Path("search/q={q}")
     @Produces("application/json")
